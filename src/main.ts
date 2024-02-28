@@ -17,15 +17,18 @@ window.addEventListener("resize", function () {
 
 const option: EChartsOption = {
   xAxis: {
-    type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    type: "value",
   },
   yAxis: {
     type: "value",
   },
   series: [
     {
-      data: [150, 230, 224, 218, 135, 147, 260],
+      data: [
+        [1, 140],
+        [2, 45],
+        [3, 12],
+      ],
       type: "line",
     },
   ],
