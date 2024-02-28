@@ -2,7 +2,10 @@ import "./style.css";
 
 import * as echarts from "echarts";
 
-const chartDom = document.querySelector("div.content");
+const chartDom = document.querySelector<HTMLElement>("div.content");
+if (chartDom === null) {
+  throw new Error("Cannot find div.content");
+}
 const myChart = echarts.init(chartDom);
 const option = {
   xAxis: {
