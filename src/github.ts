@@ -27,9 +27,11 @@ export const getGithubCount = async (stars: number) => {
 
 export const getData = async () => {
   const data = [];
-  const starMinimumList = new Array(30)
-    .fill(0)
-    .map((n, i) => Math.floor(100000 / (i + 1) ** 2));
+
+  const starMinimumList = [
+    2, 5, 10, 50, 100, 250, 500, 1000, 5000, 10000, 20000, 30000, 40000, 50000,
+    60000, 70000, 80000, 100000, 150000, 200000,
+  ];
   for (const stars of starMinimumList) {
     const result = await getGithubCount(stars);
     data.push([stars, result]);

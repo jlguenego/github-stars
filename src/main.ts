@@ -21,18 +21,39 @@ import { getData } from "./github";
   console.log("data: ", data);
 
   const option: EChartsOption = {
+    title: {
+      text: "Repository Github avec stars > x",
+    },
     xAxis: {
-      type: "log",
+      type: "category",
+      data: data.map(([x, _y]) => x),
     },
     yAxis: {
-      type: "value",
+      type: "log",
     },
     series: [
       {
-        data: data,
+        name: "Repo Github > x stars",
+        data: data.map(([_x, y]) => y),
         type: "line",
+        smooth: true,
+        areaStyle: {},
+        label: {
+          show: true,
+          position: "top",
+        },
       },
     ],
+    tooltip: {
+      trigger: "item",
+      axisPointer: {
+        type: "cross",
+        snap: true,
+        label: {
+          show: true,
+        },
+      },
+    },
   };
 
   myChart.setOption(option);
