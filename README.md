@@ -1,10 +1,10 @@
 # Github Stars
 
-The data used for the diagram come directly from github.
-
-Thanks to the [github API](https://docs.github.com/en/rest) we can see how many repository have more than X stars.
-
 The diagram can be seen on https://jlguenego.github.io/github-stars/
+
+The data used for the diagram come directly from Github via the public access of the [github API](https://docs.github.com/en/rest).
+
+We can see how many repositories have more than X stars.
 
 ## Author
 
