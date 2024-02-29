@@ -1,5 +1,5 @@
 import { EChartsOption } from "echarts";
-import "./style.css";
+import "./style.scss";
 
 import { LineChart } from "echarts/charts";
 import {
@@ -23,6 +23,7 @@ echarts.use([
 import { getData } from "./github";
 
 (async () => {
+  const data = await getData();
   const chartDom = document.querySelector<HTMLElement>("div.content");
   if (chartDom === null) {
     throw new Error("Cannot find div.content");
@@ -35,7 +36,6 @@ import { getData } from "./github";
     myChart.resize();
   });
 
-  const data = await getData();
   console.log("data: ", data);
 
   const option: EChartsOption = {

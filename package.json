@@ -14,6 +14,7 @@
     "vite": "^5.1.4"
   },
   "dependencies": {
-    "echarts": "^5.5.0"
+    "echarts": "^5.5.0",
+    "sass": "^1.71.1"
   }
 }
