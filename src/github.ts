@@ -1,12 +1,12 @@
 import { Loader } from "./Loader";
-import { sleep } from "./utils";
+import { retry, sleep } from "./utils";
 
 const url = (starMinimum: number) =>
   `https://api.github.com/search/repositories?q=stars:%3E${starMinimum}&per_page=1`;
 
 const CACHE = "cache";
 
-export const getGithubCount = async (stars: number) => {
+export const getGithubCount = async (stars: number): Promise<number> => {
   const cacheStr = localStorage.getItem(CACHE);
   const cache = cacheStr === null ? {} : JSON.parse(cacheStr);
 
@@ -14,8 +14,25 @@ export const getGithubCount = async (stars: number) => {
     return cache[stars];
   }
 
-  await sleep(1000);
   const response = await fetch(url(stars));
+
+  if (response.status === 403) {
+    const headers = response.headers.keys();
+    console.log("headers: ", [...headers]);
+    if (response.headers.get("x-ratelimit-remaining") === "0") {
+      const timestampStr = response.headers.get("x-ratelimit-reset");
+      if (timestampStr !== null) {
+        const timestamp = 1000 * +timestampStr;
+        const duration = timestamp - Date.now();
+        console.log("waiting the reset for duration: ", duration);
+        await sleep(duration + 1000);
+        return await getGithubCount(stars);
+      }
+    }
+  }
+  if (response.status >= 400) {
+    throw new Error(`Status error: ${response.status}`);
+  }
   const json = await response.json();
   const result = json.total_count;
   cache[stars] = result;
@@ -35,7 +52,9 @@ export const getData = async () => {
   for (let i = 0; i < starMinimumList.length; i++) {
     Loader.progress((i + 1) / starMinimumList.length);
     const stars = starMinimumList[i];
-    const result = await getGithubCount(stars);
+    const result = await retry(async () => {
+      return await getGithubCount(stars);
+    });
     data.push([stars, result]);
   }
   Loader.finalize();
