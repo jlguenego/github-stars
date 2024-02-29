@@ -1,1 +1,0 @@
-*{box-sizing:border-box}body{font-family:sans-serif}div.content{height:30em;width:100%}div.init{display:flex;flex-flow:column}div.bar{border:.06em solid #8da3e5;background:#eee;height:1em;display:flex;align-items:stretch}div.bar div.progress{background:#8da3e5;width:30%;transition:width .1s}
