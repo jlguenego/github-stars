@@ -36,11 +36,11 @@ import { getData } from "./github";
     myChart.resize();
   });
 
-  console.log("data: ", data);
-
   const option: EChartsOption = {
     title: {
-      text: "Repository Github avec stars > x",
+      text: "Repository Github with more than x stars",
+      subtext: "Made by Jean-Louis GUENEGO, source and explanation from Github",
+      sublink: "https://github.com/jlguenego/github-stars",
     },
     xAxis: {
       type: "category",
