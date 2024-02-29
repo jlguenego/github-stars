@@ -21,7 +21,6 @@ echarts.use([
 ]);
 
 import { getData } from "./github";
-import { CallbackDataParams } from "echarts/types/dist/shared.js";
 
 (async () => {
   const data = await getData();
