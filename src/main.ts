@@ -21,6 +21,7 @@ echarts.use([
 ]);
 
 import { getData } from "./github";
+import { CallbackDataParams } from "echarts/types/dist/shared.js";
 
 (async () => {
   const data = await getData();
@@ -59,6 +60,12 @@ import { getData } from "./github";
         label: {
           show: true,
           position: "top",
+          formatter: (d): string => {
+            if (d.data === undefined || d.data === null) {
+              return "";
+            }
+            return d.data.toLocaleString();
+          },
         },
       },
     ],
