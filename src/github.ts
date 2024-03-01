@@ -4,7 +4,7 @@ import { retry, sleep } from "./utils";
 const url = (starMinimum: number) =>
   `https://api.github.com/search/repositories?q=stars:%3E${starMinimum}&per_page=1`;
 
-const CACHE = "cache";
+export const CACHE = "cache";
 
 export const getGithubCount = async (stars: number): Promise<number> => {
   const cacheStr = localStorage.getItem(CACHE);
@@ -43,7 +43,7 @@ export const getGithubCount = async (stars: number): Promise<number> => {
 
 export const getData = async () => {
   Loader.init();
-  const data = [];
+  const data: [number, number][] = [];
 
   const starMinimumList = [
     2, 5, 10, 50, 100, 250, 500, 1000, 5000, 10000, 20000, 30000, 40000, 50000,
@@ -59,4 +59,8 @@ export const getData = async () => {
   }
   Loader.finalize();
   return data;
+};
+
+export const removeCache = () => {
+  localStorage.removeItem(CACHE);
 };
